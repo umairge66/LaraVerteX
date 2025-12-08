@@ -148,8 +148,8 @@ class ServerMetricsService
                 continue;
             }
 
-            $total = disk_total_space($mountPoint);
-            $free = disk_free_space($mountPoint);
+            $total = 15;
+            $free = 10;
 
             if ($total === false || $free === false) continue;
 
