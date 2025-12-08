@@ -212,24 +212,70 @@ class ServerMetricsService
     }
 
     /**
-     * Check if a service is running
+     * Check if a service is running using proc filesystem
      */
     private function getServiceStatus(string $service): array
     {
-        // Use systemctl with safe execution
-        exec("systemctl is-active $service 2>/dev/null", $output, $returnCode);
-        $isActive = $returnCode === 0 && ($output[0] ?? '') === 'active';
-
-        exec("systemctl is-enabled $service 2>/dev/null", $output, $returnCode);
-        $isEnabled = $returnCode === 0 && ($output[0] ?? '') === 'enabled';
+        // Check if service is running by looking for its process
+        $isActive = $this->isProcessRunning($service);
 
         return [
             'active' => $isActive,
-            'enabled' => $isEnabled,
+            'enabled' => true, // Assume enabled if we can't check
             'status' => $isActive ? 'running' : 'stopped',
         ];
     }
 
+    /**
+     * Check if a process is running by name
+     */
+    private function isProcessRunning(string $processName): bool
+    {
+        // Map service names to process names
+        $processMap = [
+            'nginx' => 'nginx',
+            'mysql' => 'mysqld',
+            'redis-server' => 'redis-server',
+            'php8.3-fpm' => 'php-fpm',
+        ];
+
+        $searchName = $processMap[$processName] ?? $processName;
+
+        // Read /proc to find processes
+        $procDir = '/proc';
+
+        if (!is_readable($procDir)) {
+            return false;
+        }
+
+        $dir = @opendir($procDir);
+        if (!$dir) {
+            return false;
+        }
+
+        while (false !== ($entry = readdir($dir))) {
+            // Only check numeric directories (PIDs)
+            if (!is_numeric($entry)) {
+                continue;
+            }
+
+            $cmdlineFile = "$procDir/$entry/cmdline";
+
+            if (!is_readable($cmdlineFile)) {
+                continue;
+            }
+
+            $cmdline = @file_get_contents($cmdlineFile);
+
+            if ($cmdline && strpos($cmdline, $searchName) !== false) {
+                closedir($dir);
+                return true;
+            }
+        }
+
+        closedir($dir);
+        return false;
+    }
     /**
      * Get load average
      */
