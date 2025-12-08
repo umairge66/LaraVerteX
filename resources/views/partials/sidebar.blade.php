@@ -42,10 +42,10 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboards -->
-        <li class="menu-item">
+        <li class="menu-item {{request()->routeIs('dashboard') ? 'active' : ''}}">
             <a href="javascript:void(0);" class="menu-link">
                 <i class="menu-icon icon-base ti tabler-smart-home"></i>
-                <div data-i18n="Dashboards">Dashboards</div>
+                <div data-i18n="Dashboard">Dashboard</div>
             </a>
         </li>
 

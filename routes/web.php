@@ -1,13 +1,12 @@
 <?php
 
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MetricsController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/', function () {
-    return view('v1.sites.index', ['title' => 'Server Metrics']);
-});
 // Get all metrics
 Route::get('/metrics', [MetricsController::class, 'index']);
 

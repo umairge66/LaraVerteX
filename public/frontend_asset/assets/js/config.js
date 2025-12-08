@@ -42,6 +42,7 @@ window.config = {
 };
 
 window.assetsPath = document.documentElement.getAttribute('data-assets-path');
+
 window.templateName = document.documentElement.getAttribute('data-template');
 
 /**
@@ -71,7 +72,7 @@ window.templateName = document.documentElement.getAttribute('data-template');
 
 if (typeof TemplateCustomizer !== 'undefined') {
   window.templateCustomizer = new TemplateCustomizer({
-    displayCustomizer: true,
+    displayCustomizer: false,
     lang: localStorage.getItem('templateCustomizer-' + templateName + '--Lang') || 'en', // Set default language here
     // defaultPrimaryColor: '#D11BB4',
     // defaultSkin: 1,

@@ -1,4 +1,4 @@
-@extends('v1.layouts.app')
+@extends('layouts.app')
 
 @section('content')
     <link rel="stylesheet" href="{{asset('frontend_asset/assets/vendor/libs/apex-charts/apex-charts.css')}}"/>
@@ -153,7 +153,7 @@
                 <div class="card h-100">
                     <div class="card-header pb-2 d-flex justify-content-between">
                         <div>
-                            <h5 class="card-title mb-1">Memory</h5>
+                            <h5 class="card-title mb-1">Swap</h5>
                             <p class="card-subtitle" id="swapStats">-- / --</p>
                         </div>
                         <div>
@@ -482,7 +482,7 @@
                     let displayName = name.replace(/-/g, ' ').replace(/\b\w/g, function (l) {
                         return l.toUpperCase();
                     });
-                    let badgeClass = status.active ? 'bg-success' : 'bg-danger';
+                    let badgeClass = status.active ? 'bg-label-success' : 'bg-label-danger';
                     let statusText = status.status.charAt(0).toUpperCase() + status.status.slice(1);
 
                     html += '<li class="list-group-item d-flex justify-content-between align-items-center">';
@@ -507,8 +507,8 @@
                     html += '<tr><td>';
                     html += '<h6 class="mb-0">' + iface.name + '</h6>';
                     html += '<div class="mt-1">';
-                    html += '<span class="badge bg-success me-1">RX: ' + iface.received + '</span>';
-                    html += '<span class="badge bg-info">TX: ' + iface.transmitted + '</span>';
+                    html += '<span class="badge bg-label-success  me-1">RX: ' + iface.received + '</span>';
+                    html += '<span class="badge bg-label-info">TX: ' + iface.transmitted + '</span>';
                     html += '</div></td></tr>';
                 });
 

@@ -5,22 +5,22 @@
     class="layout-navbar-fixed layout-menu-fixed layout-compact"
     dir="ltr"
     data-skin="default"
-    data-assets-path="{{asset('frontend_asset/assets/')}}"
-    data-template="vertical-menu-template-no-customizer"
+    data-assets-path="{{asset('frontend_asset/assets')}}/"
+    data-template="vertical-menu-template"
     data-bs-theme="light">
-@include('v1.partials.head')
+@include('partials.head')
 <body>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
-        @include('v1.partials.sidebar')
+        @include('partials.sidebar')
         <!-- / Menu -->
 
         <!-- Layout container -->
         <div class="layout-page">
             <!-- Navbar -->
-            @include('v1.partials.navbar')
+            @include('partials.navbar')
             <!-- / Navbar -->
 
             <!-- Content wrapper -->
@@ -30,7 +30,7 @@
                 <!-- / Content -->
 
                 <!-- Footer -->
-                @include('v1.partials.footer')
+                @include('partials.footer')
                 <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>
@@ -48,7 +48,7 @@
 </div>
 <!-- / Layout wrapper -->
 
-@include('v1.partials.script')
+@include('partials.script')
 @stack('scripts')
 </body>
 </html>
